@@ -17,14 +17,14 @@ export function initTray() {
   tray.setToolTip(pkg.name + ' ' + pkg.version)
   const menus = Menu.buildFromTemplate([
     {
-      label: '打开面板',
+      label: 'Open',
       type: 'normal',
       accelerator: 'Ctrl+V',
       click() {}
     },
     { label: '', type: 'separator' },
     {
-      label: '检查更新',
+      label: 'Check for Updates',
       type: 'normal',
       visible: true,
       click() {
@@ -40,23 +40,28 @@ export function initTray() {
             .showMessageBox({
               title: '',
               type: 'info',
-              message: '已下载最新版本，是否立即重启'
+              message: 'Update completed, restart now?',
+              buttons: ['Yes', 'No']
             })
             .then((res) => {
-              console.log(res, 'restart')
+              if (res.response === 0) {
+                console.log('restart')
+              } else {
+                console.log('cancel')
+              }
             })
           // TODO 重启应用
         }, 3000)
       }
     },
     {
-      label: '正在检查更新...',
+      label: 'Checking...',
       type: 'normal',
       visible: false,
       enabled: false
     },
     {
-      label: '更新完毕，立即重启',
+      label: 'Update completed, restart now',
       type: 'normal',
       visible: false,
       enabled: true,
@@ -66,7 +71,7 @@ export function initTray() {
       }
     },
     {
-      label: '退出',
+      label: 'Quit',
       type: 'normal',
       role: 'quit'
     }
