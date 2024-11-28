@@ -1,6 +1,7 @@
 import { dialog, Menu, nativeTheme, Tray } from 'electron'
 import path from 'node:path'
 import pkg from '../../package.json'
+import { checkUpdate } from './updater'
 
 let tray: Tray | null
 
@@ -30,30 +31,29 @@ export function initTray() {
       type: 'normal',
       visible: true,
       click() {
-        menus.items[2].visible = false
-        menus.items[3].visible = true
-
-        // 更新下载完毕
-        setTimeout(() => {
-          menus.items[3].visible = false
-          menus.items[4].visible = true
-
-          dialog
-            .showMessageBox({
-              title: '',
-              type: 'info',
-              message: 'Update completed, restart now?',
-              buttons: ['Yes', 'No']
-            })
-            .then((res) => {
-              if (res.response === 0) {
-                console.log('restart')
-              } else {
-                console.log('cancel')
-              }
-            })
-          // TODO 重启应用
-        }, 3000)
+        checkUpdate()
+        // menus.items[2].visible = false
+        // menus.items[3].visible = true
+        // // 更新下载完毕
+        // setTimeout(() => {
+        //   menus.items[3].visible = false
+        //   menus.items[4].visible = true
+        //   dialog
+        //     .showMessageBox({
+        //       title: '',
+        //       type: 'info',
+        //       message: 'Update completed, restart now?',
+        //       buttons: ['Yes', 'No']
+        //     })
+        //     .then((res) => {
+        //       if (res.response === 0) {
+        //         console.log('restart')
+        //       } else {
+        //         console.log('cancel')
+        //       }
+        //     })
+        //   // TODO 重启应用
+        // }, 3000)
       }
     },
     {

@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import os from 'node:os'
 import { initTray } from './tray'
-import autoUpdater from './updater'
+import { checkUpdate } from './updater'
 
 const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -48,7 +48,7 @@ async function createWindow() {
   win = new BrowserWindow({
     title: 'Main window',
     icon: path.join(process.env.VITE_PUBLIC, 'favicon.ico'),
-    show: false,
+    // show: false,
     webPreferences: {
       preload
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
@@ -66,11 +66,11 @@ async function createWindow() {
     // Open devTool if the app is not packaged
     win.webContents.openDevTools()
 
-    Object.defineProperty(app, 'isPackaged', {
-      get() {
-        return true
-      }
-    })
+    // Object.defineProperty(app, 'isPackaged', {
+    //   get() {
+    //     return true
+    //   }
+    // })
   } else {
     win.loadFile(indexHtml)
   }
@@ -93,7 +93,7 @@ async function createWindow() {
 
 app.whenReady().then(() => {
   createWindow()
-  autoUpdater()
+  // checkUpdate()
 })
 
 app.on('window-all-closed', () => {

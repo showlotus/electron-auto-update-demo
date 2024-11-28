@@ -1,23 +1,10 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import pkg from '../package.json'
 </script>
 
 <template>
-  <div>
-    <a href="https://www.electronjs.org/" target="_blank">
-      <img src="./assets/electron.svg" class="logo electron" alt="Electron logo" />
-    </a>
-    <a href="https://vitejs.dev/" target="_blank">
-      <img src="./assets/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Electron + Vite + Vue" />
   <div class="flex-center">
-    Place static files into the <code>/public</code> folder
-    <img style="width: 2.4em; margin-left: .4em;" src="/logo.svg" alt="Logo">
+    <span> Current Version: </span><i>{{ pkg.version }}</i>
   </div>
 </template>
 
@@ -26,6 +13,7 @@ import HelloWorld from './components/HelloWorld.vue'
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 }
 
 .logo {
@@ -36,7 +24,7 @@ import HelloWorld from './components/HelloWorld.vue'
 }
 
 .logo.electron:hover {
-  filter: drop-shadow(0 0 2em #9FEAF9);
+  filter: drop-shadow(0 0 2em #9feaf9);
 }
 
 .logo:hover {
