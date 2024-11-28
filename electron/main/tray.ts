@@ -5,15 +5,17 @@ import pkg from '../../package.json'
 let tray: Tray | null
 
 export function initTray() {
-  let currIconTheme = ''
-  nativeTheme.on('updated', () => {
+  let currIconTheme: 'light' | 'dark' = 'light'
+  const updateIcon = () => {
     const theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light'
     if (theme === currIconTheme) return
     currIconTheme = theme
-    tray?.setImage(getTrayIcon())
-  })
+    tray?.setImage(getTrayIcon(theme))
+  }
+  nativeTheme.on('updated', updateIcon)
+  updateIcon()
 
-  tray = new Tray(getTrayIcon())
+  tray = new Tray(getTrayIcon(currIconTheme))
   tray.setToolTip(pkg.name + ' ' + pkg.version)
   const menus = Menu.buildFromTemplate([
     {
@@ -79,7 +81,7 @@ export function initTray() {
   tray.setContextMenu(menus)
 }
 
-function getTrayIcon() {
+function getTrayIcon(theme: 'light' | 'dark') {
   const size = 48
   const darkIcon = path.join(
     process.env.VITE_PUBLIC,
@@ -91,5 +93,5 @@ function getTrayIcon() {
     'tray/light',
     `icon@${size}x${size}.png`
   )
-  return nativeTheme.shouldUseDarkColors ? lightIcon : darkIcon
+  return theme === 'light' ? darkIcon : lightIcon
 }

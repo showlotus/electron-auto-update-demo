@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import os from 'node:os'
 import { initTray } from './tray'
+import autoUpdater from './updater'
 
 const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -64,6 +65,12 @@ async function createWindow() {
     win.loadURL(VITE_DEV_SERVER_URL)
     // Open devTool if the app is not packaged
     win.webContents.openDevTools()
+
+    Object.defineProperty(app, 'isPackaged', {
+      get() {
+        return true
+      }
+    })
   } else {
     win.loadFile(indexHtml)
   }
@@ -84,7 +91,10 @@ async function createWindow() {
   initTray()
 }
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+  createWindow()
+  autoUpdater()
+})
 
 app.on('window-all-closed', () => {
   win = null

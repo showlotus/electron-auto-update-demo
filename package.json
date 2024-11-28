@@ -1,6 +1,6 @@
 {
-  "name": "electron-vue-vite",
-  "version": "28.1.0",
+  "name": "electron-auto-update-demo",
+  "version": "0.1.0",
   "main": "dist-electron/main/index.js",
   "description": "Really simple Electron + Vue + Vite boilerplate.",
   "author": "草鞋没号 <308487730@qq.com>",
@@ -28,6 +28,7 @@
     "@vitejs/plugin-vue": "^5.0.4",
     "electron": "^33.2.0",
     "electron-builder": "^24.13.3",
+    "electron-updater": "^6.3.9",
     "typescript": "^5.4.2",
     "vite": "^5.1.5",
     "vite-plugin-electron": "^0.28.4",
